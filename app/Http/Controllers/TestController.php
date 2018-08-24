@@ -8,6 +8,8 @@ class TestController extends Controller
 {
     public function index()
     {
+    	$url = 'https://data.block.cc/api/v1/symbols';
+
     	
     }
 }
