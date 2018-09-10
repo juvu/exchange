@@ -44,7 +44,7 @@ a{
 
 a:hover{
     text-decoration:none;
-    color:#ff660b;
+    /* color:#ff660b; */
 }
 
 i, em{
@@ -85,7 +85,7 @@ i, em{
     color:#55c931;
 }
 
-::selection{
+/* ::selection{
     background:#e55600;
     color:#ffffff;
 }
@@ -93,7 +93,7 @@ i, em{
 ::-moz-selection{
     background:#e55600;
     color:#ffffff;
-}
+} */
 
 .clear{
     clear:both;
@@ -2038,8 +2038,8 @@ i, em{
     min-height:480px;
     margin-bottom:20px;
     float:right;
-    border:1px solid #e8e8e8;
-    box-shadow:2px 2px 5px #eeeeee;
+    /* border:1px solid #e8e8e8;
+    box-shadow:2px 2px 5px #eeeeee; */
     padding:22px 10px;
     color:#666666;
 }
@@ -3778,14 +3778,15 @@ a.auto-submit.cancel, a:hover.auto-submit.cancel{
 }
 
 .register{
-    border:#d5d5d5 solid 1px;
-    background:#ffffff;
-    border-radius:5px;
+    background:#fff;
+    border-radius:3px;
     margin-top:20px;
+    margin-bottom: 20px;
+    padding: 80px 0;
 }
 
 .register table{
-    margin:40px auto 40px auto;
+    margin: 0 auto;
     font-size:14px;
 }
 
@@ -3911,27 +3912,28 @@ a.auto-submit.cancel, a:hover.auto-submit.cancel{
 
 .formbody{
     position:relative;
-    width:290px;
+    width:300px;
     margin:10px 0;
 }
 
 .formbody input[type=text], .formbody input[type=password]{
     background:#ffffff;
-    width:246px;
+    width:256px;
     line-height:24px;
+    height: 24px;
     border:1px solid #cccccc;
-    border-radius:5px;
+    border-radius:3px;
     padding:8px 10px 8px 32px;
 }
 
 .formbody input[type=text]:focus, .formbody input[type=password]:focus{
-    border-color:#e55600 !important; /*box-shadow:#d7f1ff 2px 2px 2px;*/
-    box-shadow:0 0 3px #e55600;
+    border-color:#d45858 !important; /*box-shadow:#d7f1ff 2px 2px 2px;*/
+    box-shadow:0 0 3px #d45858;
 }
 
 .formbody input[type=text]:hover, .formbody input[type=password]:hover{
-    border-color:#e55600 !important; /*box-shadow:#d7f1ff 2px 2px 2px;*/
-    box-shadow:0 0 3px #e55600;
+    border-color:#d45858 !important; /*box-shadow:#d7f1ff 2px 2px 2px;*/
+    box-shadow:0 0 3px #d45858;
 }
 
 .formbody i{
@@ -9076,32 +9078,6 @@ select{
     box-shadow:0 0 3px #1583fb;
 }
 
-.all_mask{
-    width:100%;
-    background:#000000;
-    opacity:0.6;
-    filter:alpha(opacity=60);
-    position:absolute;
-    left:0;
-    top:0;
-    z-index:999;
-}
-
-.all_mask_loginbox{
-    border-radius:4px;
-    width:498px;
-    border:1px solid #7f7f7f;
-    position:absolute;
-    left:50%;
-    top:300px;
-    margin-left:-250px;
-    box-shadow:0 0 15px #7f7f7f;
-    background:#ffffff;
-    padding-top:10px;
-    padding-bottom:32px;
-    z-index:1000;
-}
-
 .mask_wrap{
     padding-left:138px;
     width:360px;
@@ -9419,50 +9395,6 @@ select{
     height:400px;
 }
 
-.pic_1{
-}
-
-.login_wrap{
-    width:1100px;
-    position:absolute;
-    left:50%;
-    top:0;
-    margin-left:-500px;
-    z-index:99
-}
-
-.login_box{
-    width:318px;
-    height:328px;
-    position:absolute;
-    right:16px;
-    top:36px;
-    background:none;
-    font-family:tahoma, Microsoft YaHei, Arial, Helvetica, sans-serif;
-    color:#333333;
-}
-
-.login_bg{
-    width:318px;
-    height:328px;
-    background:#ffffff;
-    opacity:0.7;
-    filter:alpha(opacity=70);
-    position:absolute;
-    left:0;
-    top:0;
-}
-
-.login_box_1{
-    padding-left:32px;
-    padding-top:20px;
-    height:308px;
-    width:286px;
-    position:relative;
-    left:0;
-    top:0;
-}
-
 .login_box_2{
     padding-left:0px;
     padding-top:21px;
@@ -9540,27 +9472,6 @@ select{
     margin-bottom:19px;
 }
 
-.login_text{
-    width:250px;
-    margin-bottom:15px;
-    position:relative;
-    font-size:12px;
-}
-
-.login_text input{
-    background:#ffffff;
-    outline:none;
-    width:230px;
-    border:1px #d7d7d7 solid;
-    height:18px;
-    padding:10px 0;
-    padding-right:7px;
-    padding-left:11px;
-    line-height:18px;
-    vertical-align:middle;
-    color:#999999;
-}
-
 .prompt{
     position:absolute;
     left:0;
@@ -9600,23 +9511,6 @@ select{
 
 .login_link a:hover{
     text-decoration:underline;
-}
-
-.price_today{
-    height:39px;
-    width:100%;
-    background:#124c68;
-}
-
-.price_today li{
-    float:left;
-    width:10.5%;
-    text-align:center;
-    color:#ffffff;
-    line-height:39px;
-    font-family:tahoma, Microsoft YaHei, Arial, Helvetica, sans-serif;
-    font-size:14px;
-    position:relative;
 }
 
 .price_today_ul{
@@ -9822,19 +9716,7 @@ select{
 }
 
 /*---------------------------------------------账户中心-------------------------------------------------*/
-.assets_center{
-    border:1px solid #d5d5d5;
-    font-family:tahoma, Microsoft YaHei, Arial, Helvetica, sans-serif;
-    font-size:14px;
-    color:#333333;
-}
 
-.assets_content{
-    border-left:1px solid #d5d5d5;
-    height:100%;
-    min-height:620px;
-    position:relative;
-}
 
 .assets_content h5{
     line-height:34px;
@@ -9890,19 +9772,7 @@ select{
     background:none;
 }
 
-.coin_menu{
-    position:absolute;
-    left:-1px;
-    top:-1px;
-    width:246px;
-    overflow:hidden;
-    z-index:100;
-}
 
-.coin_menu_box{
-    border-top:1px solid #d5d5d5;
-    position:relative;
-}
 
 .coin_menu ul, .coin_menu dl{
     margin-top:-1px;
@@ -9919,9 +9789,6 @@ select{
     padding-left:22px;
 }
 
-.coin_menu dt a:hover{
-    color:#e55600;
-}
 
 .dl_menu{
     padding-top:12px;
@@ -9929,44 +9796,12 @@ select{
     display:none;
 }
 
-.coin_menu li i{
-    float:left;
-    width:47px;
-    height:100%;
-    background:url(../images/coin_style_icon.png?v=1.37) no-repeat center top;
-}
-
 .coin_menu li a{
     float:left;
     color:#333333;
 }
 
-.coin_menu li a:hover{
-    color:#e55600;
-}
 
-.coin_menu .active{
-    border-left:3px solid #e55600;
-    border-right:none;
-    background:#ffffff url(../images/now.png) no-repeat 222px 16px;
-    border-bottom:1px solid #d5d5d5;
-    border-top:1px solid #d5d5d5;
-    height:40px;
-    padding-left:0px;
-    line-height:40px;
-}
-
-.coin_menu .here{
-    border-left:3px solid #e55600;
-    border-right:none;
-    background:#ffffff url(../images/now.png) no-repeat 222px 16px;
-    border-bottom:1px solid #d5d5d5;
-    border-top:1px solid #d5d5d5;
-    height:40px;
-    padding-left:0px;
-    line-height:40px;
-    padding-left:19px;
-}
 
 .coin_menu .active a, .coin_menu .here a{
     color:#e55600;
@@ -11556,20 +11391,6 @@ select{
     padding-top:0;
 }
 
-.login-footer{
-    font-size:16px;
-    width:100%;
-    text-align:left;
-    text-indent:1.2em;
-    background:rgba(255, 255, 255, .7);
-    height:40px;
-    line-height:40px;
-    position:absolute;
-    bottom:0px;
-    right:0px;
-    font-size:14px;
-}
-
 .login-footer a{
     color:#e55600;
 }
@@ -12748,7 +12569,7 @@ select{
 }
 
 #marqueebox1{
-    height:630px;
+    height:508px;
     max-height:625px;
     overflow-x:hidden;
     overflow-y:auto;
@@ -12852,7 +12673,7 @@ select{
 
 .rides-cs{
     font-size:12px;
-    background:#e55600;
+    background:#d45858;
     position:fixed;
     top:230px;
     right:0px;

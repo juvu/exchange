@@ -6,22 +6,22 @@
         <!--<div class="my-carousel-indicators">-->
         <ol class="my-carousel-indicators">
             @foreach($indexAdver as $key=>$val)
-                <li data-target="#myCarousel" data-slide-to="{{$key}}"
-                @if($key=1) class="active" @endif>
+                <li data-target="#myCarousel" data-slide-to="{{$key}}" @if($key=1) class="active" @endif>
+
                 </li>
             @endforeach
         </ol>
         <div class="my-carousel-inner">
-            <volist name="indexAdver" id="vo">
-                <div class="item hand <eq name='i' value='1'> active</eq>" onclick="window.open('{$vo['url']}')" style="background-image: url({{ asset('ad/1111') }};"></div>
-            </volist>
+            @foreach($indexAdver as $key=>$val)
+                <div class="item hand @if($key==1) active @endif</eq>" onclick="window.open('/storage/img/ad/{{$val->img}}')" style="background-image: url('/storage/img/ad/{{$val->img}}');"></div>
+            @endforeach
         </div>
     </div>
     <div class="login_wrap">
         <div class="login_box">
             <div class="login_bg"></div>
             <!-- 未登录状态 -->
-            <gt name="Think.session.userId" value="0">
+            @if(userid() == 0)
                 <div id="login-bar" class="login_box_2">
                     <h2>欢迎登录111交易平台</h2>
                     <dl>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="service_qq"></div>
                 </div>
-                <else/>
+            @else
                 <form id="form-login-i">
                     <div class="login_box_1">
                         <div class="login_title">登录</div>
@@ -62,23 +62,23 @@
 
                             <div id="pw-err-i" class="prompt" style="display: none"></div>
                         </div>
-                        <eq name="C['login_verify']" value="1">
-                            <div class="login_text zin70" id="ga-box-i">
-                                <img id="codeImg reloadverifyindex" src="{:U('Verify/code')}" width="120" height="38" onclick="this.src=this.src+'?t='+Math.random()" style="margin-top: 1px; cursor: pointer;" title="换一张">
-                                <input type="text" class="code" id="index_verify" name="code" placeholder="请输入验证码" style="width: 106px; float: left;">
-                            </div>
-                        </eq>
+                        
+                        <div class="login_text zin70" id="ga-box-i">
+                            <img id="codeImg reloadverifyindex" src="#" width="120" height="38" onclick="this.src=this.src+'?t='+Math.random()" style="margin-top: 1px; cursor: pointer;" title="换一张">
+                            <input type="text" class="code" id="index_verify" name="code" placeholder="请输入验证码" style="width: 106px; float: left;">
+                        </div>
+                        
                         <div class="login_button">
                             <input type="button" value="登录" onclick="upLoginIndex();"/>
                         </div>
                         <div class="login-footer">
-                            
-      <span> <a href="#">免费注册</a> ｜ <a href="#">忘记密码</a>
-      </span>
+                                                
+                          <span> <a href="#">免费注册</a> ｜ <a href="#">忘记密码</a>
+                          </span>
                         </div>
                     </div>
                 </form>
-            </gt>
+            @endif
         </div>
     </div>
 </div>
@@ -88,7 +88,7 @@
     <div class="ui-notice-inner">
         <i class="ui-icon ui-icon-tongzhi"></i>
         <div class="ui-notice-content" id="uiNotice"></div>
-        <a class="ui-more" href="/Article/index">更多...</a>
+        <a class="ui-more" href="api/Article/index">更多...</a>
     </div>
 </div>
 <div class="price_today">
@@ -99,14 +99,6 @@
                 <i class="cagret cagret-down"></i>
                 <i class="cagret cagret-up"></i>
             </li>
-            <!-- <li class="click-sort" data-sort="2" data-flaglist="0" data-toggle="0">买一价
-                <i class="cagret cagret-down"></i>
-                <i class="cagret cagret-up"></i>
-            </li>
-            <li class="click-sort" data-sort="3" data-flaglist="0" data-toggle="0">卖一价
-                <i class="cagret cagret-down"></i>
-                <i class="cagret cagret-up"></i>
-            </li> -->
             <li class="click-sort" data-sort="6" data-flaglist="0" data-toggle="0">交易量
                 <i class="cagret cagret-down"></i>
                 <i class="cagret cagret-up"></i>
@@ -125,118 +117,11 @@
     </div>
 </div>
 <ul class="price_today_ul" id="price_today_ul"></ul>
-<!-- <div class="footer_con" style="margin: 0px auto;width: 1180px;">
-    <div class="autobox clear" style="padding: 0px 20px;">
-        <p style="width: 1165px;">
-            <span>风险警告：</span>
-            {:C('web_waring')}
-        </p>
-    </div>
-</div> -->
-<!-- <div class="news_box">
-    <div class="autobox">
-        <div class="news_t clear"></div>
-        <div class="news_s">
-            <div class="news_sc">
-                <div class="news_ct">
-                    <div class="news_cti"></div>
-                    <div class="news_cts">
-                        <a target="_blank" href="/Article/index/id/{$indexArticleType[0]['id']}">{$indexArticleType[0]['title']}</a>
-                    </div>
-                </div>
-                <div class="news_cl">
-                    <ul class="news_clu">
-                        <volist name="indexArticle[0]" id="vo">
-                            <li>
-                                <a class="news_clua" target="_blank" href="{:U('Article/detail','id='.$vo['id'])}">{$vo['title']} </a>
-                                <a class="news_clda" target="_blank" href="{:U('Article/detail','id='.$vo['id'])}"> [ {$vo['addtime']|date="y-m-d",###} ] </a>
-                            </li>
-                        </volist>
-                        <li>
-                            <a class="news_clda" target="_blank" href="/Article/index/id/{$indexArticleType[0]['id']}"> 更多&gt;&gt; </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="news_sc">
-                <div class="news_ct">
-                    <div class="news_cti news_ctin"></div>
-                    <div class="news_cts">
-                        <a target="_blank" href="/Article/index/id/{$indexArticleType[1]['id']}">{$indexArticleType[1]['title']}</a>
-                    </div>
-                </div>
-                <div class="news_cl">
-                    <ul class="news_clu">
-                        <volist name="indexArticle[1]" id="vo">
-                            <li>
-                                <a class="news_clua" target="_blank" href="{:U('Article/detail','id='.$vo['id'])}">{$vo['title']} </a>
-                                <a class="news_clda" target="_blank" href="{:U('Article/detail','id='.$vo['id'])}"> [ {$vo['addtime']|date="y-m-d",###} ] </a>
-                            </li>
-                        </volist>
-                        <li>
-                            <a class="news_clda" target="_blank" href="/Article/index/id/{$indexArticleType[1]['id']}"> 更多&gt;&gt; </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="news_sc">
-                <div class="news_ct">
-                    <div class="news_cti news_ctic"></div>
-                    <div class="news_cts">
-                        <a target="_blank" href="/Article/index/id/{$indexArticleType[2]['id']}">{$indexArticleType[2]['title']}</a>
-                    </div>
-                </div>
-                <div class="news_cl">
-                    <ul class="news_clu">
-                        <volist name="indexArticle[2]" id="vo">
-                            <li>
-                                <a class="news_clua" target="_blank" href="{:U('Article/detail','id='.$vo['id'])}">{$vo['title']} </a>
-                                <a class="news_clda" target="_blank" href="{:U('Article/detail','id='.$vo['id'])}"> [ {$vo['addtime']|date="y-m-d",###} ] </a>
-                            </li>
-                        </volist>
-                        <li>
-                            <a class="news_clda" target="_blank" href="/Article/index/id/{$indexArticleType[2]['id']}"> 更多&gt;&gt; </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+
 <input type="hidden" name="coin_type" value="cny_btc"/>
 <input type="hidden" name="amount" value="1000000"/>
 
-
-
-<!-- <eq name="C['index_lejimum']" value="1">
-<div class="index_box_2 slogan">
-    <div class="slogan_title">选择{:C('web_title')},安全可信赖</div>
-    <div class="slogan_tis">累计交易额<span id="yi" style="display: none;margin-left: 5px;" class="yiyi1"></span>
-        <sapn style="display: none;" class="yiyi2"> 亿</sapn>
-        <span id="wan"></span> 万
-    </div>
-    <div id="cumulative"></div>
-</div>
-<script src="__PUBLIC__/Home/js/index_change.js"></script>
-</eq> -->
-
-
-<!--友情链接-->
-<!-- <div class="link" style="    padding-top: 0px;">
-    <div class="linkbox">
-        <h4>
-            <a target="_blank" href="/about/partner.html">友情链接</a>
-        </h4>
-        <ul>
-            <volist name="indexLink" id="vo">
-                <li style="margin-left: 0px;">
-                    <a target="_blank" href="{$vo['url']}">{$vo['title']}</a>
-                </li>
-            </volist>
-        </ul>
-    </div>
-</div> -->
-<script type="text/javascript" src="{{asset('Home/js/util.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/Home/js/util.js') }}"></script>
 <script>
 
     //顶部通知
@@ -342,7 +227,7 @@
     }
 
     function trends() {
-        $.getJSON('/Ajax/trends?t=' + rd(), function (d) {
+        $.getJSON('/api/trends?t=' + rd(), function (d) {
             trends = d;
             allcoin();
         });
@@ -350,7 +235,7 @@
 
     function allcoin(cb) {
 
-        $.get('/Ajax/allcoin?t=' + rd(), cb ? cb : function (d) {
+        $.get('/api/allcoin?t=' + rd(), cb ? cb : function (d) {
             ALLCOIN = d;
             var t = 0;
             var img = '';
@@ -398,7 +283,7 @@
             var coinfinance = 0;
             if (typeof FINANCE == 'object') coinfinance = parseFloat(FINANCE.data[ary[i][8] + '_balance']);
             html += '<li><dl class="autobox clear"><dt><a href="/trade/index/market/' + ary[i][8] + '/">' +
-                    '<img src="/Upload/coin/' + ary[i][9] + '" style="vertical-align: middle;margin-right: 5px;width: 24px;">' + ary[i][0] + '</a></dt>'+/*<dd class="orange" style="text-indent: 0.5em;">$' + ary[i][1] + '</dd><dd style="text-indent: 0.5rem;">$' + ary[i][2] + '</dd>*/'<dd style="text-indent: 0rem;">$' + ary[i][3] + '</dd><dd class="w142" style="    text-indent: 0rem;">' + formatCount(ary[i][6]) + '</dd><dd class="w142" style="    text-indent: 0rem;">' + formatCount(ary[i][4]) + '</dd><dd class="w142 ' + (ary[i][7] >= 0 ? 'red' : 'green') + '" style="    text-indent: 0rem;color:red">' + (parseFloat(ary[i][7]) < 0 ? '' : '+') + ((parseFloat(ary[i][7]) < 0.01 && parseFloat(ary[i][7]) > -0.01) ? "0.00" : ary[i][7]) + '%</dd><dd id="' + ary[i][8] + '_plot"  style="width:150px;height:35px;"></dd><dd class="" style="width:165px;text-align: center;text-indent: 0;"><input style="color:#fff;background:#e55600" type="button" value="去交易" onclick="top.location=\'/trade/index/market/' + ary[i][8] + '/\'" /></dd></dl></li>'
+                    '<img src="' + ary[i][9] + '" style="vertical-align: middle;margin-right: 5px;width: 24px;">' + ary[i][0] + '</a></dt>'+/*<dd class="orange" style="text-indent: 0.5em;">$' + ary[i][1] + '</dd><dd style="text-indent: 0.5rem;">$' + ary[i][2] + '</dd>*/'<dd style="text-indent: 0rem;">$' + ary[i][3] + '</dd><dd class="w142" style="    text-indent: 0rem;">' + formatCount(ary[i][6]) + '</dd><dd class="w142" style="    text-indent: 0rem;">' + formatCount(ary[i][4]) + '</dd><dd class="w142 ' + (ary[i][7] >= 0 ? 'red' : 'green') + '" style="    text-indent: 0rem;color:red">' + (parseFloat(ary[i][7]) < 0 ? '' : '+') + ((parseFloat(ary[i][7]) < 0.01 && parseFloat(ary[i][7]) > -0.01) ? "0.00" : ary[i][7]) + '%</dd><dd id="' + ary[i][8] + '_plot"  style="width:150px;height:35px;"></dd><dd class="" style="width:165px;text-align: center;text-indent: 0;"><input style="color:#fff;background:#e55600" type="button" value="去交易" onclick="top.location=\'/trade/index/market/' + ary[i][8] + '/\'" /></dd></dl></li>'
         }
         $('#price_today_ul').html(html);
         
@@ -470,7 +355,7 @@
             return false;
         }
 
-        $.post("{:U('Login/submit')}", {
+        $.post("/login/submit", {
             username: username,
             password: password,
             verify:verify,

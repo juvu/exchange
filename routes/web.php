@@ -14,3 +14,4 @@
 Route::get('/', 'Home\IndexController@index');
 
 Route::get('/test', 'TestController@index');
+

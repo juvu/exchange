@@ -31,7 +31,7 @@
                 }
                 o += "</tr></table></div>"
             }
-            a("body").append(o);
+            a(this).parent().append(o);
             var m = a(this).position();
             var k = m.top + a(this).outerHeight() - 160;
             a("#" + h).css("top", k);

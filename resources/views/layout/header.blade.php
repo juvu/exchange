@@ -22,7 +22,7 @@
 	<script type="text/javascript" src="{{ asset('Home/js/jquery.slideunlock.js') }}"></script>
     <script type="text/javascript" src="{{ asset('layer/layer.js') }}"></script>
     
-	<script>
+	<script type="text/javascript">
 		var _hmt = _hmt || [];
 		(function() {
 		  var hm = document.createElement("script");
@@ -37,13 +37,9 @@
 <div class="header bg_w" id="trade_aa_header">
 	<div class="hearder_top">
 		<div class="autobox po_re zin100" id="header">
-			<!-- <div class="welcome">{:C('top_name')}</div> -->
 			<div class="hot-coins-price">
 				<ul class="topprice">
-					<!-- <li> BTC/CNY : ￥ <span class="topnum red">41778.00</span><i class="icon-arrow-down green">↓</i> </li>
-					<li> ETH/CNY : ￥ <span class="topnum red">2979.90</span><i class="icon-arrow-up red">↑</i> </li>
-					<li> LTC/CNY : ￥ <span class="topnum red">526.48</span><i class="icon-arrow-up red">↑</i> </li>
-					<li> QTUM/CNY : ￥ <span class="topnum red">56.30</span><i class="icon-arrow-up red">↑</i> </li> -->
+				
 				</ul>
 			</div>
 			<div class="right orange" id="login">
@@ -120,46 +116,18 @@
 	<div style="clear: both;"></div>
 	<div class="autobox clear" id="trade_clear">
 		<div class="logo">
-			<a href="/"><img src="__UPLOAD__/public/{$C['web_logo']}" alt=""/></a>
+			<a href="/"><img src="/storage/img/public/5b7e21e8043f6.png" alt=""/></a>
 		</div>
-		<!-- <div class="phone right">
-			<span class="iphone" style=""></span><a href="http://wpa.qq.com/msgrd?V=3&amp;uin={:C('contact_qq')[0]}&amp;Site=QQ客服&amp;Menu=yes" target="_blank" class="qqkefu"></a>
-		</div> -->
 	</div>
 </div>
 
 <script>
-	// 货币汇率
-
-	// var usd_Rate = {};
-
-	// var exchangeRata = function () {
-	// 	$.ajax({
-	// 		url: ' https://data.block.cc/api/v1/exchange_rate',
-    //         type: 'GET',
-    //         dataType: 'jsonp',
-    //         jsonp: 'callback',
-    //         crossDomain: true,
-    //         success: function(data) {
-    //             console.log(data);
-	// 			if(data.message == 'success') {
-	// 				usd_Rate = data.data.rates;
-	// 			}
-    //         },
-    //         error: function(msg) {
-    //             console.log(msg);
-    //         }
-	// 	})
-	// }
-	// exchangeRata();
-
 	// 添加热门数字货币实时价格
-
 	var getCoinsData = function() {
 
         $.ajax({
-            url: '/Ajax/getHotCoin',
-            type: 'GET',
+            url: '/api/getHotCoin',
+            type: 'post',
             dataType: 'json',
             success: function(data) {
                     
@@ -185,11 +153,11 @@
     getCoinsData();
     coinsData  = setInterval(getCoinsData,5000);
 
-	$.getJSON("/Ajax/getJsonMenu?t=" + Math.random(), function (data) {
+	$.getJSON("/api/getJsonMenu?t=" + Math.random(), function (data) {
 		if (data) {
 			var list = '';
 			for (var i in data) {
-				list += '<dd><a href="/Trade/index/market/' + data[i]['name'] + '"><img src="/Upload/coin/' + data[i]['img'] + '" style="width: 18px; margin-right: 5px;">' + data[i]['title'] + '</a></dd>';
+				list += '<dd><a href="/Trade/index/market/' + data[i]['name'] + '"><img src="' + data[i]['img'] + '" style="width: 18px; margin-right: 5px;">' + data[i]['title'] + '</a></dd>';
 			}
 			$("#menu_list_json").html(list);
 		}

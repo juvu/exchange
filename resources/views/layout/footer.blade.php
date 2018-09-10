@@ -15,7 +15,7 @@
 </div>
 <div class="footer_bottom">
 	<div class="autobox" style="height: 40px;margin-top: 5px;">
-		<span style="display: inline-block;color:#A6A9AB;">CopyRight© 2013-2016 {$C['web_name']}交易平台 All Rights Reserved &nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">{$C['web_icp']}</a><span style="display: inline-block; color:#A6A9AB"></span></span>
+		<span style="display: inline-block;color:#A6A9AB;">CopyRight© 2013-2016 GTE交易平台 All Rights Reserved &nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">ISP9002</a><span style="display: inline-block; color:#A6A9AB"></span></span>
 	</div>
 	<!-- 原安全验证位置 -->
 </div>
@@ -85,9 +85,7 @@
 		$('body,html').animate({scrollTop: 0},1500);
 	}
 
-	var is_login = {$Think.session.userId
-	}
-	;
+	var is_login = {{islogin()}};
 
 	if (window.location.hash == '#login') {
 		if (!is_login) {
@@ -96,7 +94,7 @@
 	}
 
 	if (is_login) {
-		$.getJSON("/Ajax/allfinance?t=" + Math.random(), function (data) {
+		$.getJSON("/api/allfinance?t=" + Math.random(), function (data) {
 
 			$('#user_finance').html(data);
 		});

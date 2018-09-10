@@ -77,12 +77,12 @@
                 form = $('.hide-data');
                 query = form.serialize();
             }else if (form.get(0)==undefined){
-                console.log('c1');
+                //console.log('c1');
                 confirm(confirm_msg);
                 return false;
             }else if ( form.get(0).nodeName=='FORM' ){
                 if ( $(this).hasClass('confirm') ) {
-                    console.log('c2');
+                    //console.log('c2');
                     if(!confirm(confirm_msg)){
                         return false;
                     }
@@ -108,7 +108,7 @@
                 query = form.serialize();
             }else{
                 if ( $(this).hasClass('confirm') ) {
-                    console.log('c3');
+                    //console.log('c3');
                     if(!confirm(confirm_msg)){
                         return false;
                     }

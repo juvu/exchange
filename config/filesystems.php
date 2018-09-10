@@ -43,6 +43,15 @@ return [
 
     'disks' => [
 
+        'uploadimg'=>[
+            'driver'=>'local',
+            'root'=>storage_path(config('public.upload_img_path'))
+        ],
+        'uploadfiles'=>[
+            'driver'=>'local',
+            'root'=>storage_path(config('public.upload_file_path'))
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
