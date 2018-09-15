@@ -94,7 +94,7 @@
 	}
 
 	if (is_login) {
-		$.getJSON("/api/allfinance?t=" + Math.random(), function (data) {
+		$.getJSON("allfinance?t=" + Math.random(), function (data) {
 
 			$('#user_finance').html(data);
 		});

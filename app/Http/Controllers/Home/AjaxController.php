@@ -13,13 +13,15 @@ use App\Models\UserCoin;
 class AjaxController extends Controller
 {
     /**
-     * 热门币种（页头）
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * 热门币种（页头）.
+     *
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
      */
     public function getHotCoin(Request $request)
     {
-    	$data = array();
+        $data = array();
 
         //根据总销量查询热门币种
         $coins = Market::where(['status' => 1])->orderBy('id')->limit(4)->get()->toArray();
@@ -35,14 +37,16 @@ class AjaxController extends Controller
     }
 
     /**
-     * 获取币种菜单
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * 获取币种菜单.
+     *
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
      */
     public function getJsonMenu(Request $request)
     {
-    	//币种
-    	$markets = Market::where(['status' => 1])->orderBy('id')->limit(4)->get()->toArray();
+        //币种
+        $markets = Market::where(['status' => 1])->orderBy('id')->limit(4)->get()->toArray();
 
         foreach ($markets as $k => $v) {
             $v['xnb'] = explode('_', $v['name'])[0];
@@ -58,27 +62,32 @@ class AjaxController extends Controller
 
     /**
      * 获取趋势
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     *
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
      */
     public function trends(Request $request)
     {
-		//币种
-    	$markets = Market::where(['status' => 1])->orderBy('id')->limit(4)->get()->toArray();
+        //币种
+        $markets = Market::where(['status' => 1])->orderBy('id')->limit(4)->get()->toArray();
 
         foreach ($markets as $k => $v) {
+            //获取3日趋势
 
-            $data[$k]['data'] = 11;
+            $data[$k]['data'] = $v['tendency'];
             $data[$k]['yprice'] = $v['new_price'];
         }
 
-		return response()->json($data);
+        return response()->json($data);
     }
 
     /**
-     * 获取币种信息
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * 获取币种信息.
+     *
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
      */
     public function allcoin(Request $request)
     {
@@ -122,21 +131,21 @@ class AjaxController extends Controller
                 }
             }
         }*/
-        
+
         $markets = Market::where(['status' => 1])->orderBy('id')->limit(4)->get()->toArray();
-        
+
         foreach ($markets as $k => $v) {
-        	$jyd = explode("_",$v['name'])[0];
+            $jyd = explode('_', $v['name'])[0];
 
-        	$coin = Coin::where('name', $jyd)->first();
+            $coin = Coin::where('name', $jyd)->first();
 
-            $data[$k][0] = $coin->title; 
+            $data[$k][0] = $coin->title;
             $data[$k][1] = round($v['new_price'], $v['round']);
             $data[$k][2] = round($v['buy_price'], $v['round']);
             $data[$k][3] = round($v['sell_price'], $v['round']);
             $data[$k][4] = round(TradeLog::where(array('status' => 1, 'market' => $k))->sum('mum'));
-            $data[$k][5] = '';            
-            $cnum =  Coin::where(array('name' => $jyd))->find('cs_cl'); 
+            $data[$k][5] = '';
+            $cnum = Coin::where(array('name' => $jyd))->find('cs_cl');
             $data[$k][6] = round($data[$k][1] * $cnum);
             $data[$k][7] = round($v['change'], 2);
             $data[$k][8] = $v['name'];
@@ -144,13 +153,11 @@ class AjaxController extends Controller
             $data[$k][10] = '';
             if (!userid()) {
                 $data[$k][11] = 0;
-            }else{
-                $data[$k][11] = Sicon::where(array('userid'=>userid(),'market'=>$v['name']))->find('status');
+            } else {
+                $data[$k][11] = Sicon::where(array('userid' => userid(), 'market' => $v['name']))->find('status');
             }
         }
-            
-         
-        
+
         header('Access-Control-Allow-Origin:*');
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with,content-type');
@@ -159,9 +166,11 @@ class AjaxController extends Controller
     }
 
     /**
-     * 计算用户总资产
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * 计算用户总资产.
+     *
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
      */
     public function allfinance(Request $request)
     {
@@ -173,7 +182,7 @@ class AjaxController extends Controller
         $coins = Coin::where(array('status' => 1))->get();
         //美元
         $usdt = 0;
-        foreach($coins as $coin) {
+        foreach ($coins as $coin) {
             if ($coin['name'] == 'usdt') {
                 $usdt = bcadd($usdt, bcadd($UserCoin['usdt'], $UserCoin['usdtd'], 8), 8);
             } else {
@@ -183,7 +192,7 @@ class AjaxController extends Controller
                 $usdt = bcadd($usdt, bcmul(bcadd($UserCoin[$coin['name']], $UserCoin[$coin['name'].'d'], 8), $newPrice, 8), 8);
             }
         }
-        $data = sprintf("%.2f", $usdt);
+        $data = sprintf('%.2f', $usdt);
         //如果需要换算成人民币
         $data = bcmul($usdt, getRateByBaidu(), 2);
 

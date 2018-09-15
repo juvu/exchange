@@ -330,7 +330,7 @@
             //获取公告
             $.ajax({
                 type : "post",
-                url : "api/Article/notice",
+                url : "/Article/notice",
                 success : function(res){
                     $(element).html('<a href="' + res.url + '">公告:' + res.title + '</a>')
                 }
@@ -339,7 +339,7 @@
         message : function(){
             $.ajax({
                 type : "post",
-                url : "api/Article/notice",
+                url : "/Article/notice",
                 success : function(res){
                     var html = '<div class="ui-message ui-message-error">';
                     html += '<p>【重要通知】: <a href="' + res.url + '">' + res.title + '</a></p>';
@@ -441,6 +441,15 @@
                     }
                 });
             }
+        },
+        /**
+         * c2c隐藏真实姓名
+         * ui.hideName
+         * val 为string类型
+         * eg: a = "123456"  ui.hideName(a,0,2) =>  "12"
+         */
+        hideName: function(val,start,end) {
+            return val.slice(start,end);
         }
     }
 

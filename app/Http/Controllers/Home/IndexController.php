@@ -11,7 +11,7 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         //轮播图
-        $indexAdver = \App\Models\Adver::all();
+        $indexAdver = \App\Models\Adver::where(['status' => 1])->orderBy('sort')->get();
         //菜单导航
         $daohang = \App\Models\Daohang::where(['status' => 1])->orderBy('addtime', 'desc')->get();
 

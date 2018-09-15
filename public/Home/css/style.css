@@ -688,10 +688,10 @@ body{background:#f8f8f8}
 .nav li img:hover{transition:0.3s ease all;transform:rotateZ(180deg);-webkit-transform:rotateZ(180deg);-webkit-transition:0.3s ease all;-moz-transform:rotateZ(180deg);-moz-transition:0.3s ease all;-ms-transform:rotateZ(180deg);-ms-transition:0.3s ease all;-o-transform:rotateZ(180deg);-o-transition:0.3s ease all}
 .nav li a{color:#fff}
 .nav li a:hover,.nav .active{color:#de5959;text-decoration:none}
-.deal_list{z-index:999999;display:none;position:absolute;left:-15px;top:55px;width:600px;background:#fff;border:1px solid #cdcdba;border-top:2px #de5959 solid;box-shadow:0 3px 5px #cdcdba}
+.deal_list{z-index:999999;display:none;position:absolute;left:-15px;top:55px;width:480px;background:#fff;border:1px solid #cdcdba;border-top:2px #de5959 solid;padding: 0 10px;}
 .nocontent{height:34px;width:390px;position:absolute;left:0;top:-34px}
-.deal_list dl{width:580px;margin:0 auto}
-.deal_list dd{width:140px;padding-left:4px;border-bottom:1px solid #eee;height:40px;line-height:40px;float:left}
+.deal_list dl{width: 100%;overflow: hidden;}
+.deal_list dd{width:155px;padding-left:4px;border-bottom:1px solid #eee;height:40px;line-height:40px;float:left;text-align: left}
 .deal_list dd i{float:left;width:24px;height:19px;margin-top:11px;background:url(../images/coinstyle.png?v=1.42) no-repeat}
 .nav  li a{color:#333;}
 .nav-tabs ul li a {color: #fff;}

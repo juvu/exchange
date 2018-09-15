@@ -10,6 +10,7 @@
 	<meta name="Description" content="{:C('web_description')}">
 	<meta name="author" content="zuocoin.com">
 	<meta name="coprright" content="zuocoin.com">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="shortcut icon" href=" /favicon.ico"/>
 	<link rel="stylesheet" href="{{ asset('Home/css/zuocoin.css') }}"/>
 	<link rel="stylesheet" href="{{ asset('Home/css/style.css') }}"/>
@@ -67,8 +68,6 @@
 							<div class="mywallet_btn_box">
 								<a href="/finance/index">充值</a>
 								<a href="/finance/index">提现</a>
-								<!--<a href="/finance/index">转入</a>
-								<a href="/finance/index">转出</a>-->
 								<a href="/finance/mywt.html">委托管理</a>
 								<a href="/finance/mycj.html">成交查询</a>
 							</div>
@@ -124,9 +123,9 @@
 <script>
 	// 添加热门数字货币实时价格
 	var getCoinsData = function() {
-
+		$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         $.ajax({
-            url: '/api/getHotCoin',
+            url: 'getHotCoin',
             type: 'post',
             dataType: 'json',
             success: function(data) {
@@ -153,7 +152,7 @@
     getCoinsData();
     coinsData  = setInterval(getCoinsData,5000);
 
-	$.getJSON("/api/getJsonMenu?t=" + Math.random(), function (data) {
+	$.getJSON("getJsonMenu?t=" + Math.random(), function (data) {
 		if (data) {
 			var list = '';
 			for (var i in data) {

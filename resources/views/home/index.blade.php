@@ -1,4 +1,3 @@
-<!--    顶部通知   -->
 @extends('layout.header')
 @section('content')
 <div class="index_pic_wrap po_re">
@@ -64,7 +63,7 @@
                         </div>
                         
                         <div class="login_text zin70" id="ga-box-i">
-                            <img id="codeImg reloadverifyindex" src="#" width="120" height="38" onclick="this.src=this.src+'?t='+Math.random()" style="margin-top: 1px; cursor: pointer;" title="换一张">
+                            <img id="codeImg reloadverifyindex" src="{{captcha_src()}}" width="120" height="38" onclick="this.src=this.src+'?t='+Math.random()" style="margin-top: 1px; cursor: pointer;" title="换一张">
                             <input type="text" class="code" id="index_verify" name="code" placeholder="请输入验证码" style="width: 106px; float: left;">
                         </div>
                         
@@ -122,8 +121,8 @@
 <input type="hidden" name="amount" value="1000000"/>
 
 <script type="text/javascript" src="{{ asset('/Home/js/util.js') }}"></script>
-<script>
 
+<script>
     //顶部通知
     ui.message();
     //通知
@@ -135,7 +134,7 @@
     var currentIndex = 0;
     var currentItem = null;
     var nextItem = null;
-    var time;
+    var time = null;
 
 
     $(".my-carousel").hover(function () {
@@ -158,13 +157,16 @@
     }).trigger("mouseleave");
 
     $(".my-carousel-indicators li").click(function () {
+
         var nextIndex = parseInt($(this).attr('data-slide-to'));
         if (nextIndex == currentIndex) return false;
         currentIndex = nextIndex;
         currentItem = $allItems.filter('.active');
         currentItem.removeClass('active').fadeOut(1000);
-        $allItems.eq(currentIndex - 1).addClass('active').fadeIn(500);
-        $allIndicators.removeClass('active').eq(currentIndex - 1).addClass('active');
+        $allItems.eq(currentIndex).addClass('active').fadeIn(500);
+
+        $allIndicators.removeClass('active').eq(currentIndex).addClass('active');
+
     });
 
 
@@ -227,7 +229,7 @@
     }
 
     function trends() {
-        $.getJSON('/api/trends?t=' + rd(), function (d) {
+        $.getJSON('trends?t=' + rd(), function (d) {
             trends = d;
             allcoin();
         });
@@ -235,7 +237,7 @@
 
     function allcoin(cb) {
 
-        $.get('/api/allcoin?t=' + rd(), cb ? cb : function (d) {
+        $.get('allcoin?t=' + rd(), cb ? cb : function (d) {
             ALLCOIN = d;
             var t = 0;
             var img = '';
@@ -267,7 +269,7 @@
             renderPage(priceTmp);
             allcoin_callback(priceTmp);
             change_line_bg('price_today_ul', 'li');
-            //t = setTimeout('allcoin()', 5000);
+            t = setTimeout('allcoin()', 5000);
         }, 'json');
     }
 
@@ -283,21 +285,30 @@
             var coinfinance = 0;
             if (typeof FINANCE == 'object') coinfinance = parseFloat(FINANCE.data[ary[i][8] + '_balance']);
             html += '<li><dl class="autobox clear"><dt><a href="/trade/index/market/' + ary[i][8] + '/">' +
-                    '<img src="' + ary[i][9] + '" style="vertical-align: middle;margin-right: 5px;width: 24px;">' + ary[i][0] + '</a></dt>'+/*<dd class="orange" style="text-indent: 0.5em;">$' + ary[i][1] + '</dd><dd style="text-indent: 0.5rem;">$' + ary[i][2] + '</dd>*/'<dd style="text-indent: 0rem;">$' + ary[i][3] + '</dd><dd class="w142" style="    text-indent: 0rem;">' + formatCount(ary[i][6]) + '</dd><dd class="w142" style="    text-indent: 0rem;">' + formatCount(ary[i][4]) + '</dd><dd class="w142 ' + (ary[i][7] >= 0 ? 'red' : 'green') + '" style="    text-indent: 0rem;color:red">' + (parseFloat(ary[i][7]) < 0 ? '' : '+') + ((parseFloat(ary[i][7]) < 0.01 && parseFloat(ary[i][7]) > -0.01) ? "0.00" : ary[i][7]) + '%</dd><dd id="' + ary[i][8] + '_plot"  style="width:150px;height:35px;"></dd><dd class="" style="width:165px;text-align: center;text-indent: 0;"><input style="color:#fff;background:#e55600" type="button" value="去交易" onclick="top.location=\'/trade/index/market/' + ary[i][8] + '/\'" /></dd></dl></li>'
+                    '<img src="' + ary[i][9] + '" style="vertical-align: middle;margin-right: 5px;width: 30px;">' + ary[i][0] + '</a></dt>'+'<dd style="text-indent: 0rem;">' + formatPrice(ary[i][1]) + '</dd><dd class="w142" style="    text-indent: 0rem;">' + formatPrice(formatCount(ary[i][4])) + '</dd><dd class="w142" style="    text-indent: 0rem;">' + formatPrice(formatCount(ary[i][6])) + '</dd><dd class="w142 ' + (ary[i][7] >= 0 ? 'red' : 'green') + '" style="    text-indent: 0rem;color:red;text-align: center;">' + (ary[i][1] == 0 ? '--' : (parseFloat(ary[i][7]) < 0 ? '' : '+') + ((parseFloat(ary[i][7]) < 0.01 && parseFloat(ary[i][7]) > -0.01) ? "0.00" : ary[i][7]) + '%') + '</dd><dd id="' + ary[i][8] + '_plot"  style="width:150px;height:35px;"></dd><dd class="" style="width:150px;text-align: center;text-indent: 0;"><input style="color:#fff;background:#de5959" type="button" value="去交易" onclick="toMarket(\'' + ary[i][8] + '\')" /></dd><dd style="width:100px;text-indent:0;text-align:center;"><div class="add-fav ' + (ary[i][13] == "1" ? "add-fav-on" : "") + '" data-collection="' + ary[i][13] + '" data-market="' + ary[i][8] + '" onclick="ui.collection()"></div></dd></dl></li>'
         }
         $('#price_today_ul').html(html);
-        
+
     }
+    
+    function toMarket(name){
+        top.location='/trade/index/market/' + name + '/';
+    }
+
     //保留2位小鼠
-    function formatCount(count) {
-        var countokuu = (count / 100000000).toFixed(3)
-        var countwan = (count / 10000).toFixed(3)
-        if (count > 100000000)
-            return countokuu.substring(0, countokuu.lastIndexOf('.') + 3) + '亿'
-        if (count > 10000)
-            return countwan.substring(0, countwan.lastIndexOf('.') + 3) + '万'
-        else
-            return parseFloat(count).toFixed(2)
+    function formatCount(num) {
+        var result = '', counter = 0;
+        num = (num || 0).toString();
+        for (var i = num.length - 1; i >= 0; i--) {
+            counter++;
+            result = num.charAt(i) + result;
+            if (!(counter % 3) && i != 0) { result = ',' + result; }
+        }
+        return result;
+    }
+    //格式化价格
+    function formatPrice(price){
+        return  price.toString() == '0' ? '--' : "$" + price;
     }
     //移入行变色
     function change_line_bg(id, tag, nobg) {
@@ -309,14 +320,6 @@
         if (!nobg) {
             for (var i = 0; i < oC_li.length; i++) {
                 oC_li.eq(i).css('background-color', i % 2 ? '#fff' : '#f8f8f8');
-                // oInp.mouseover(function () {
-                //     this.style.color = '#fff';
-                //     this.style.backgroundColor = '#e55600';
-                // });
-                // oInp.mouseout(function () {
-                //     this.style.color = '#e55600';
-                //     this.style.background = 'none';
-                // });
             }
         }
         oCoin_list.find(tag).hover(function () {
@@ -340,40 +343,9 @@
 
     var cookieValue = $.cookies.get('cookie_username');
     if (cookieValue != '' && cookieValue != null) {
-        $("#index_username").val(cookieValue);
+        $("#username").val(cookieValue);
     }
-    function upLoginIndex() {
-        var username = $("#index_username").val();
-        var password = $("#index_password").val();
-        var verify = $("#index_verify").val();
-        if (username == "" || username == null) {
-            layer.tips('请输入用户名', '#index_username', {tips: 3});
-            return false;
-        }
-        if (password == "" || password == null) {
-            layer.tips('请输入登录密码', '#index_password', {tips: 3});
-            return false;
-        }
-
-        $.post("/login/submit", {
-            username: username,
-            password: password,
-            verify:verify,
-        }, function (data) {
-            if (data.status == 1) {
-                $.cookies.set('cookie_username', username);
-                layer.msg(data.info, {icon: 1});
-                window.location = '/Finance';
-            } else {
-                //刷新验证码
-                $(".reloadverifyindex").click();
-                layer.msg(data.info, {icon: 2});
-                if (data.url) {
-                    window.location = data.url;
-                }
-            }
-        }, "json");
-    }
+    
 </script>
 <script>
     //菜单高亮
@@ -397,14 +369,13 @@
     var loginClick = function() {
         var e = event || window.event || arguments.callee.caller.arguments[0];
         if (e && e.keyCode == 13) { // enter 键
-            if (!verfiy()) {
-                return;
-            }
-            upLoginIndex();
+            user.login();
         }
     }
-    $('#index_username').bind('keydown', loginClick);
-    $('#index_password').bind('keydown', loginClick);
-    $('#index_verify').bind('keydown', loginClick);
+    $('#username').bind('keydown', loginClick);
+    $('#password').bind('keydown', loginClick);
+    $('#verify').bind('keydown', loginClick);
+
+
 </script>
 @endsection

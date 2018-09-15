@@ -13,13 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::any('getHotCoin', 'Home\AjaxController@getHotCoin');
-Route::any('getJsonMenu', 'Home\AjaxController@getJsonMenu');
-Route::any('trends', 'Home\AjaxController@trends');
-Route::any('allcoin', 'Home\AjaxController@allcoin');
-Route::any('allfinance', 'Home\AjaxController@allfinance');
-Route::any('Article/notice', 'Home\ArticleController@notice');
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

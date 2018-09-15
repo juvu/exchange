@@ -172,6 +172,22 @@
   color: #f1a325;
 }
 
+/*   ui-center   */
+/* line 27, ../sass/components/_utilities.scss */
+.ui-center {
+  margin: 0 auto;
+}
+
+/*   ui-block   */
+/* line 31, ../sass/components/_utilities.scss */
+.ui-block {
+  background: #fff;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
 /* line 3, ../sass/components/_button.scss */
 .ui-button {
   display: inline-block;
@@ -284,28 +300,66 @@
   background-color: #ddf3f5;
 }
 
-/* line 6, ../sass/ui.scss */
+/* line 1, ../sass/components/_form.scss */
+.ui-form-control {
+  background: #ffffff;
+  color: #333;
+  line-height: 24px;
+  height: 40px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding: 8px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* line 15, ../sass/components/_form.scss */
+.ui-form-field {
+  position: relative;
+  width: 100%;
+  padding-left: 130px;
+  height: 50px;
+  box-sizing: border-box;
+}
+/* line 22, ../sass/components/_form.scss */
+.ui-form-field label {
+  position: absolute;
+  display: inline-block;
+  width: 120px;
+  padding-right: 10px;
+  text-align: right;
+  line-height: 40px;
+  font-size: 14px;
+  top: 5px;
+  left: 0;
+}
+/* line 34, ../sass/components/_form.scss */
+.ui-form-field .ui-form-control {
+  margin-top: 5px;
+}
+
+/* line 9, ../sass/ui.scss */
 .ui-notice {
   height: 40px;
   line-height: 40px;
   font-size: 14px;
   color: #666;
 }
-/* line 11, ../sass/ui.scss */
+/* line 14, ../sass/ui.scss */
 .ui-notice a {
   margin-left: 15px;
   color: #666;
 }
-/* line 14, ../sass/ui.scss */
+/* line 17, ../sass/ui.scss */
 .ui-notice a:hover {
   color: #de5959;
 }
-/* line 18, ../sass/ui.scss */
+/* line 21, ../sass/ui.scss */
 .ui-notice .ui-more {
   color: #de5959;
 }
 
-/* line 22, ../sass/ui.scss */
+/* line 25, ../sass/ui.scss */
 .ui-notice-content {
   display: inline-block;
 }
